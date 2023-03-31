@@ -1,4 +1,18 @@
-<!DOCTYPE HTML>
+<!-- <php
+// session_start();
+$name=$_SESSION["email"];
+if(!isset($_SESSION["email"]))
+ {
+	header("Location:feedback.php");
+ }
+?> -->
+<?php
+session_start();
+include "db_connect.php";
+//include 'nav6.php';
+?>
+
+
 <html>
 <head>
 <title>My flights</title>
@@ -209,7 +223,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
                            <div class="menu">
 									<ul id="menu" >
-										<li><a href="asyourneed.php"><i class="fa fa-tachometer"></i> <span>Home</span></a></li>
+										<!-- <li><a href="asyourneed.php"><i class="fa fa-tachometer"></i> <span>Home</span></a></li>
 										<li><a href="vcart1.php"><i class="fa fa-tachometer"></i> <span>View booking status</span></a></li>
 										<li><a href="bookyours.php"><i class="fa fa-tachometer"></i> <span>View All flights</span></a></li>
 										<li><a href="preferedbooked.php"><i class="fa fa-tachometer"></i> <span>Bookings</span></a></li>
@@ -219,7 +233,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 										<button ><a href='logout.php'>LOGOUT</a></button>
-										
+										 -->
+										 <li><a href="asyourneed.php"><i class="fa fa-tachometer"></i> <span>Home</span></a></li>
+										<li><a href="pricedata-update.php"><i class="fa fa-tachometer"></i> <span>Predict your fare</span></a></li>
+
+										<!-- <li><a href="bookflight.php"><i class="fa fa-tachometer"></i> <span>Book your flight</span></a></li> -->
+										<!-- <li><a href="vcart1.php"><i class="fa fa-tachometer"></i> <span>View booking status</span></a></li> -->
+										<li><a href="packages.php"><i class="fa fa-tachometer"></i> <span>View All flights</span></a></li>
+										<li><a href="preferedbooked.php"><i class="fa fa-tachometer"></i> <span>Bookings</span></a></li>
+										<li><a href="offers.php"><i class="fa fa-tachometer"></i> <span>view offers</span></a></li>
+										<li><a href="viewairlines.php"><i class="fa fa-tachometer"></i> <span>View All Airlines</span></a></li>
+										<li><a href="viewairport.php"><i class="fa fa-tachometer"></i> <span>Airport list</span></a></li>
+										<li><a href="viewflights.php"><i class="fa fa-tachometer"></i> <span>View seat map</span></a></li>
+										<li><a href="http://127.0.0.1:8000/"><i class="fa fa-tachometer"></i> <span>View prices of airlines</span></a></li>
+
+										<button ><a href='logout.php'>LOGOUT</a></button>
 										
 										
 									<!--<li><a href="#"><i class="lnr lnr-chart-bars"></i> <span>Forms</span> <span class="fa fa-angle-right" style="float: right"></span></a>
@@ -474,27 +502,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </body>
 </html>
 
-<?php
-include "db_connect.php";
-?>
+
 
 <?php
 if(isset($_POST["submit"])){
-	
 	$view=$_POST["view"];
+	$name=$_SESSION["email"];
 
 		$comments=$_POST["comments"];
 	//$image=$_FILES["image"]["name"];
 	//move_uploaded_file($_FILES["image"]["tmp_name"],"pictures/".$image);
-	mysqli_query($con,"INSERT INTO `feedback_tb`(`view`,`comments`) VALUES ('$view','$comments')");
+	mysqli_query($con,"INSERT INTO `feedback_tb`(`name`,`view`,`comments`) VALUES ('$name','$view','$comments')");
 	echo "<script language='javascript'>";
-	echo 'window.location.href = "thankyou.php";';
+	echo 'window.location.href = "asyourneed.php";';
 	echo "alert('feedback send succefully')";
 	
 	echo "</script>";
 	
 }
 ?>
+
 <!DOCTYPE HTML>
 <html>
 
