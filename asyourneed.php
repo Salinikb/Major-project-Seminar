@@ -29,7 +29,7 @@ include "db_connect.php";
     $s1= $_POST["flights_from"];
 	$s2 = $_POST["flights_to"];
 	$s3=$_POST["Departuredate"];
-	// $s3 = $_POST["preferedairline"];
+	 $s4 = $_POST["preferedairline"];
 	// $s4 = $_POST["preferedseating"];
 	// $s5 = $_POST["Departuredate"];
 	// $s6 = $_POST["Departuretime"];
@@ -43,11 +43,12 @@ include "db_connect.php";
     $infant=$_POST['infant'];
 	$oneorround=$_POST['oneorround'];
 	$class=$_POST['class'];
+	$preferedseating=$_POST['preferedseating'];
 	//$image=$_FILES["image"]["name"];
 	//move_uploaded_file($_FILES["image"]["tmp_name"],"pictures/".$image);
-	mysqli_query($con,"INSERT INTO `bookasyour_tb`(`name`, `DepartureLocation`, `Arrivallocation`, `Departuredate`,  `adult`, `children`, `infant`, `oneorround`, `class`) VALUES ('$name','$s1','$s2','$s3',  '$adult', '$children', '$infant', '$oneorround', '$class')");
+	mysqli_query($con,"INSERT INTO `bookasyour_tb`(`name`, `DepartureLocation`, `Arrivallocation`,`preferedairline`,`preferedseating`, `Departuredate`,  `adult`, `children`, `infant`, `oneorround`, `class`) VALUES ('$name','$s1','$s2','$s4','$preferedseating','$s3',  '$adult', '$children', '$infant', '$oneorround', '$class')");
 	// $combine = $s1.' '.$s2.' '.$s3.' '.$s4.' '.$s5.' '.$s6.' '.$s7.' '.$s8.' '.$s9.' '.$s10.' '.$s11;
-	header('location:packages.php?active=true&from='.$s1.'&to='.$s2.'&Departuredate='.$s3);
+	header('location:packages.php?active=true&from='.$s1.'&to='.$s2.'&Departuredate='.$s3.'&preferedairline='.$s4);
 	//echo "<script>window.location.href='packages.php';<script>";
  }
 // Prepare the SQL query
@@ -110,6 +111,17 @@ include "db_connect.php";
 <html>
 
 <head>
+<script type="text/javascript">
+    (function(d, m){
+        var kommunicateSettings =
+            {"appId":"2deaba8c0fddb2ce5fd215583498c4a0a","popupWidget":true,"automaticChatOpenOnNavigation":true};
+        var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
+        s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+        var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+        window.kommunicate = m; m._globals = kommunicateSettings;
+    })(document, window.kommunicate || {});
+/* NOTE : Use web server to view HTML files as real-time update will not work if you directly open the HTML file in the browser. */
+</script>
 <div class="page-container">
    <!--/content-inner-->
 	<div class="left-content">
@@ -124,7 +136,7 @@ include "db_connect.php";
 										<ul>
 											<li><a href="contact.html">help</a></li>|
 											<li><a href="contact.html">Contact</a></li>|
-											<!--<li><a href="checkout.html"></a></li>-->
+											<li>Hai Riya</li>
 										</ul>
 									</div>
 									<div class="top_left">
@@ -177,7 +189,7 @@ include "db_connect.php";
 			<h2 class="sub-heading-agileits">Search your Flight</h2>
 			<div class="main-flex-w3ls-sectns">
 				<div class="field-agileinfo-spc form-w3-agile-text1">
-					<select class="form-control" name="flights_from" id="flights_from">
+					<select class="form-control" name="flights_from" id="flights_from" required>
 						<option selected disabled value="">From</option>
 						<?php
 
@@ -193,7 +205,7 @@ include "db_connect.php";
 					</select>
 				</div>
 				<div class="field-agileinfo-spc form-w3-agile-text2">
-					<select class="form-control" name="flights_to" id="flights_to">
+					<select class="form-control" name="flights_to" id="flights_to" required>
 						<option selected disabled value="">To</option>
 						<?php
 
@@ -213,48 +225,69 @@ include "db_connect.php";
 						
 			<div class="main-flex-w3ls-sectns">
 				<div class="field-agileinfo-spc form-w3-agile-text1">
-				<input type="datetime-local" name="Departuredate" id="datepicker" class="form-control datetimepicker" required onchange="addDate()" value="<?php echo isset($Departuredate) ? date("Y-m-d H:i",strtotime($Departuredate)) : '' ?>"> 
-
-					<!-- <input id="datepicker" name="Departuredate" type="date" placeholder="Departure Date" value="Departuredate"   
-					    required=""> -->
-						
-						
+   <input type="datetime-local" name="Departuredate" id="datepicker" class="form-control datetimepicker" required onchange="addDate()" min="<?php echo date('Y-m-d\TH:i'); ?>">  
 				</div>
 				<!-- <div class="field-agileinfo-spc form-w3-agile-text2">
 					<input type="text" id="timepicker" name="Departuretime" class="timepicker form-control" placeholder="Departure Time" value="Departuretime" required>
 				</div> -->
 			</div>
+			
+			<!-- <div class="field-agileinfo-spc form-w3-agile-text2">
+					<input type="text" id="timepicker1" name="Time" class="timepicker form-control" placeholder="Return Time" value="">
+				</div> -->
+				
+			<div class="main-flex-w3ls-sectns">
+				<div class="field-agileinfo-spc form-w3-agile-text1">
+					<select class="form-control" name="preferedairline" id="preferedairline" required>
+										<option>Preferred Airline</option>
+										<option>Airasia(IAD)</option>
+							<option>Airarabia(AXB)</option>
+							<option>Akasa Air(Akj)</option>
+							<option>Go first(GOW)</option>
+							<option>IndiGo(IGO)</option>
+							<option>Vistara(VTI)</option>
+							<option>Jet Airways(JAI)</option>
+							<option>Alliance Air(LLR)</option>
+							<option>FlyBig(FLG)</option>
+							<option>Star Air(SDG)</option> 
+									</select>
+				</div>
+				<!-- <div class="field-agileinfo-spc form-w3-agile-text2">
+					<select class="form-control" name="preferedseating" id="preferedseating" required>
+										<option>Preferred Seating</option>
+										<option value="Window">Window</option>
+										<option value="Aisle">Aisle</option>
+									</select>
+				</div> -->
+			</div>
 
 			<div class="triple-wthree">
 				<div class="field-agileinfo-spc form-w3-agile-text11">
-					<select class="form-control" id="adult" name="adult">
+					<!-- <select class="form-control" id="adult" name="adult">
 												<option value="">Adult(12+ Yrs)</option>
 												<option value="1">1</option>
 												<option value="2">2</option>
 												<option value="3">3</option>         
 												<option value="4">4</option>
-												<option value="5">5+</option>
-											</select>
+											</select> -->
 				</div>
 				<div class="field-agileinfo-spc form-w3-agile-text22">
-					<select class="form-control" id="children" name="children">
+					<!-- <select class="form-control" id="children" name="children">
 												<option value="">Children(2-11 Yrs)</option>
 												<option value="1">1</option>
 												<option value="2">2</option>
 												<option value="3">3</option>         
 												<option value="4">4</option>
-												<option value="5">5+</option>     
-											</select>
+											</select> -->
 				</div>
 				<div class="field-agileinfo-spc form-w3-agile-text33">
-					<select class="form-control" id="infant" name="infant">
+					<!-- <select class="form-control" id="infant" name="infant">
 												<option value="">Infant(under 2Yrs)</option>
 												<option value="1">1</option>
 												<option value="2">2</option>
 												<option value="3">3</option>         
 												<option value="4">4</option>
-												<option value="5">5+</option>    
-											</select>
+											</select> -->
 				</div>
 			</div>
 			<div class="radio-section">
@@ -298,6 +331,35 @@ include "db_connect.php";
 				</ul>
 				<div class="clear"></div>
 			</div>
+			<script>
+				const form = document.querySelector("form");
+const fromInput = document.getElementById("flights_from");
+const toInput = document.getElementById("flights_to");
+
+form.addEventListener("submit", (event) => {
+  // check if "From" airport is selected
+  if (fromInput.value === "") {
+    event.preventDefault();
+    alert("Please select a departure airport.");
+  }
+  
+  // check if "To" airport is selected
+  if (toInput.value === "") {
+    event.preventDefault();
+    alert("Please select a destination airport.");
+  }
+  
+  // check if "From" and "To" airports are the same
+  if (fromInput.value === toInput.value) {
+    event.preventDefault();
+    alert("Departure and destination airports cannot be the same.");
+  }
+});
+
+</script>
+
+
+
 			<!-- <div class="main-flex-w3ls-sectns">
 				<div class="field-agileinfo-spc form-w3-agile-text1">
 					<select class="form-control" name="preferedairline" id="preferedairline" required>
@@ -611,14 +673,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
                            <div class="menu">
 									<ul id="menu" >
-										<li><a href="asyourneed.php"><i class="fa fa-tachometer"></i> <span>Home</span></a></li>
-										<li><a href="vcart1.php"><i class="fa fa-tachometer"></i> <span>View booking status</span></a></li>
-										<li><a href="bookyours.php"><i class="fa fa-tachometer"></i> <span>View All flights</span></a></li>
+									<li><a href="asyourneed.php"><i class="fa fa-tachometer"></i> <span>Home</span></a></li>
+										<li><a href="pricedata-update.php"><i class="fa fa-tachometer"></i> <span>Predict your fare</span></a></li>
+
+										<!-- <li><a href="bookflight.php"><i class="fa fa-tachometer"></i> <span>Book your flight</span></a></li> -->
+										<!-- <li><a href="vcart1.php"><i class="fa fa-tachometer"></i> <span>View booking status</span></a></li> -->
+										<li><a href="packages.php"><i class="fa fa-tachometer"></i> <span>View All flights</span></a></li>
 										<li><a href="preferedbooked.php"><i class="fa fa-tachometer"></i> <span>Bookings</span></a></li>
 										<li><a href="offers.php"><i class="fa fa-tachometer"></i> <span>view offers</span></a></li>
 										<li><a href="viewairlines.php"><i class="fa fa-tachometer"></i> <span>View All Airlines</span></a></li>
-										<li><a href="viewairport.php"><i class="fa fa-tachometer"></i> <span>View All Airports</span></a></li>
-
+										<li><a href="viewairport.php"><i class="fa fa-tachometer"></i> <span>Airport list</span></a></li>
+										<li><a href="viewflights.php"><i class="fa fa-tachometer"></i> <span>View seat map</span></a></li>
+										<li><a href="http://127.0.0.1:8000/"><i class="fa fa-tachometer"></i> <span>View prices of airlines</span></a></li>
+										<li><a href="feedback.php"><i class="fa fa-tachometer"></i> <span>Give your feedbacks</span></a></li>
 
 										<button ><a href='logout.php'>LOGOUT</a></button>
 										
