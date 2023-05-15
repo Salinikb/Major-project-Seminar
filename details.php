@@ -41,7 +41,7 @@ $sql=mysqli_query($con,"select * from flights_tb where id = $id");
 
 
 <script>
-alert("Details Added Successfully please continue with payment");
+alert("Add your Details");
    
 
 </script>
@@ -131,111 +131,6 @@ include "db_connect.php";
 
 
 
-<form action="#" method="POST">
-<!-- <input type="hidden"name="id"value="<= $row['id']?>"> -->
-<input type="hidden" id="name1" value="<?php echo $n; ?>">
-
-<div class="logo">
-    <h3></h3>
-</div>
-<div class="cart">
-   <div class="cart-top">
-      <div class="cart-experience">
-         <h4></h4>
-      </div>
-      <div class="cart-login">
-         <div class="cart-login-img">
-            <!--<img src="imagesbooks/loggin_man.png">-->
-         </div>
-         <div class="cart-login-text">
-            <h5></h5>
-         </div>     
-          <!--<div class="lang_list">
-                <select tabindex="4" class="dropdown">
-                    <option value="" class="label" value=""></option>
-                    <option value="1"></option>
-                    <option value="2"></option>
-                    <option value="3"></option>
-                </select>
-             </div>      -->
-         <div class="clear"> </div>
-      </div>
-     <div class="clear"> </div>
-   </div>
-   <div class="cart-bottom">
-     <div class="table">
-        <table>
-            <thead>
-              <tr  class="main-heading">    
-                            
-              
-              <th class="long-txt">Airline</th>
-              <th class="long-txt">flightno</th>
-		 			<th class="long-txt">DepartureLocation</th>
-		 			<th class="long-txt">Arrivallocation</th>
-		 			<th class="long-txt">Departure date and time</th>
-		 			<th class="long-txt">Arrival date and time</th> 		
-					 
-					<!-- <th class="long-txt">price</th> -->	
-					<!-- <th class="long-txt">pay</th> 	-->
-
-				
-             </tr>
-                        
-                    </thead>
-                    <tbody>
-                        <?php
-                            //$airport = $conn->query("SELECT * FROM airport_list ");
-                            //while($row = $airport->fetch_assoc()){
-                                //$aname[$row['id']] = ucwords($row['airport'].', '.$row['location']);
-                            //}
-                            $id=$_REQUEST['id'];
-
-                            $qry = $con->query("SELECT * FROM tbl_bookings where bk_id=$id");
-                            while($row = $sql->fetch_assoc()):
-                               // $a= 'images1/'.$row["cimage"];
-                                
-                                //$booked = $conn->query("SELECT * FROM booked_flight where id = ".$row['id'])->num_rows;
-$r=$row['price'];
-                         ?>
-                         <tr>
-                            
-                            
-                            <!-- <td class="text-right">
-                            <img src="<?php echo $a ?> " style="width:150px; height:150px;"></td>-->
-                            <td class="text-right">
-                             <?php echo $row['Airline'] ?></td>
-                             <td class="text-right">
-                             <?php echo $row['flightNo'] ?></td> 
-							 <td class="text-right">
-							 <?php echo $row['DepartureLocation'] ?></td>
-							 <td class="text-right">
-							 <?php echo $row['Arrivallocation'] ?></td>
-							 <td class="text-right">
-							 <?php echo $row['Departuredate'] ?></td>
-							 <td class="text-right">
-							 <?php echo $row['arrivaldate'] ?></td>
-                             <td class="text-right">
-                                <?php echo number_format($row['price'],2) ?></td>
-
-
-								
-								<!--<td><input type="button" id="rzp-button1"name="btn"value="pay now"class="btn btn-primary" onclick="pay_now()"/></td>-->
-
-                             
-                             
-                            
-
-                        <?php endwhile;  ?>
-                    <!-- </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    
-    
-</div> -->
 
 <?php
 $n = $_SESSION['email'];
@@ -269,18 +164,27 @@ if(isset($_POST["submit"])){
 		$dob=$_POST["dob"];
 		$air_reward=$_POST["air_reward"];
 		$adhaar_no=$_POST["adhaar_no"];
-		$noofpass=$_POST["noofpass"];
-		$baggage=$_POST["baggage"];
+		$email=$_POST["email"];
 
+		// $noofpass=$_POST["noofpass"];
+		$Address=$_POST["Address"];
+		// $adult=$_POST["adult"];
+		// $children=$_POST["children"];
+		// $infant=$_POST["infant"];
+		// $oneorround=$_POST["oneorround"];
+		// $class=$_POST["class"];
+		// $package=$_POST["package"];
 		//print_r($_FILES);
 		
 		
 	//$image=$_FILES["image"]["name"];
 	//move_uploaded_file($_FILES["image"]["tmp_name"],"pictures/".$image);
-	mysqli_query($con,"INSERT INTO `details_tb`(`passport`, `dob`, `air_reward`, `adhaar_no`, `noofpass`, `baggage`) VALUES ('$passport','$dob','$air_reward','$adhaar_no','$noofpass','$baggage')");
+	//mysqli_query($con,"INSERT INTO `details_tb`(`passport`, `dob`, `air_reward`, `adhaar_no`, `noofpass`, `baggage`,`adult`,`children`,`infant`,`oneorround`,`class`,`package`) VALUES ('$passport','$dob','$air_reward','$adhaar_no','$noofpass','$baggage','$adult','$children','$infant','$oneorround','$class','$package')");
+	mysqli_query($con,"INSERT INTO `details_tb`(`passport`, `dob`, `air_reward`, `adhaar_no`,`email`, `Address`) VALUES ('$passport','$dob','$air_reward','$adhaar_no','$email','$Address')");
+	
 	echo "<script language='javascript'>";
-	//echo 'window.location.href = "packages.php";';
-	echo "alert('details added successfully')";
+	echo "alert('Details added successfully')";
+
 	
 	echo "</script>";
 	
@@ -318,89 +222,341 @@ if(isset($_POST["submit"])){
 	<!--//fonts-->
 </head>
 
+
+				
+
 <body>
-	<!--background-->
 	<h1></h1>
-	<!--<div class="booking-form-w3layouts">-->
-		<!-- Form starts here -->
-		<form action="#" method="post">
-		<div class="container-fluid">
-	<div class="col-lg-12">
-	
-	
+	<div style="width: 90%; border-radius: 10px; border: 1px solid grey; margin-left: 60px; padding: 10px;">
+		<form action="#" method="post" autocomplete="off">
+			<div class="container-fluid">
+				<div class="col-lg-12">
+					<h2>Enter your Details before proceed to your payment</h2>
+					
+					<div class="form-group col-md-12">
+						<label for="" class="control-label">Please Upload passport</label>
+						<input type="file" class="form-control" name="passport" id="passport" onchange="displayImg(this,$(this),'cimg')">
+					</div>
 
-		<form method="POST" autocomplete="off">
+					<div class="form-group col-md-12">
+					<!--	<img src="" alt="sample image" id="cimg">-->
+					</div>	
 
-		<h2>Enter your Details before proceed to your payment</h2>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="">Date of birth</label>
+								<input name="dob" id="dob" type="date" step="any" class="form-control"  reguired>
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="">You had Any Air reward</label>
+								<input name="air_reward" id="air_reward" type="text" step="any" class="form-control"  reguired>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="">Adhaar number</label>
+								<input name="adhaar_no" id="adhaar_no" type="text" step="any" class="form-control"  reguired>
+							</div>
+						</div>
+						<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="">Email</label>
+								<input name="email" id="email" type="text" step="any" class="form-control"  reguired>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="">Enter your Address Details</label>
+								<input name="Address" id="Address" type="text" step="any" class="form-control"  reguired>
+							</div>
+						</div>
+					</div>
+					<!-- Table Panel -->
+
+			<!-- Table Panel -->
+			<!-- <php
+				if(isset($_POST['edit_submit'])){
+					$sr= $_POST['edit_sr'];
+					echo "<script>alert('".$sr."');</script>";
+				}
+			?> -->
+			
+			<!-- Table Panel -->
+
+					<!-- <div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="">Enter Number of passengers</label>
+								<input name="noofpass" id="noofpass" type="text" step="any" class="form-control"  reguired>
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="row">
+								<div class="form-group col-md-2">
+									<select class="form-control" id="adult" name="adult">
+										<option value="">Adult(12+ Yrs)</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>         
+										<option value="4">4</option>
+										<option value="5">5+</option>
+									</select>
+								</div>
+								<div class="form-group col-md-2">
+									<select class="form-control" id="children" name="children">
+										<option value="">Children(2-11 Yrs)</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>         
+										<option value="4">4</option>
+										<option value="5">5+</option>     
+									</select>
+								</div>
+								<div class="form-group col-md-2">
+									<select class="form-control" id="infant" name="infant">
+										<option value="">Infant(under 2Yrs)</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>         
+										<option value="4">4</option>
+										<option value="5">5+</option>    
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row col-md-6">
+						<label>Select your fare</label>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="a-option">One Way</label>
+								<input type="radio" id="oneorround1" name="oneorround" value="one way">
+								<div class="check"></div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="b-option">Round-Trip</label>
+								<input type="radio" id="oneorround2" name="oneorround" value="Round Trip">
+								<div class="check"><div class="inside"></div></div>
+							</div>
+						</div>
+					</div>				
+
+					<div class="row class-md-6">
+						<label>Select your class</label>
+							<div class="col-md-2">
+								<div class="form-group">
+									<input type="radio" id="class" name="class" value="Bussiness">
+									<label for="a-option">Bussiness</label>
+									<div class="check"></div>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<input type="radio" id="class" name="class" value="Premium">
+									<label for="b-option">premium</label>
+									<div class="check"><div class="inside"></div></div>
+								</div>
+							</div>
+
+							<div class="col-md-2">
+								<div class="form-group">
+									<input type="radio" id="class" name="class" value="Economy">
+									<label for="b-option">Economy</label>
+									<div class="check"><div class="inside"></div></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="clear"></div>
+
+					<div class="row col-md-12">
+						<label>Select package</label>
+						<div class="col-md-4">
+							<div class="form-group">
+								<input type="radio" id="package" name="package" value="Basic">
+								<u><span>Basic</span></u><br>
+								<ul>
+									<li>*Flight</li>
+									<li>*Additional Checked bag</li>
+									<li>*Meal</li>
+									<li>*Seat </li>
+									<li>*Modification</li>
+									<li>*Cancellation upto 8h</li>
+								</ul>
+								<div class="check"></div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<input type="radio" id="package" name="package" value="Value">
+								<u><span>Value</span></u><br>
+								<ul>
+									<li>*Flight</li>
+									<li>*Additional Checked bag</li>
+									<li>*Meal Sandwich and water </li>
+									<li>*Seat </li>
+									<li>*Modification</li>
+									<li>*Cancellation</li>
+								</ul>
+								<div class="check"><div class="inside"></div></div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<input type="radio" id="package" name="package" value="Extra">
+								<u><span for="b-option">Extra</span></br></u>
+								*Flight</br>
+								*Additional Checked bag</br>
+								*Any Meal </br>
+								*Any Seat </br>
+								*Modification</br>
+								*Cancellation</br>
+								<div class="check"><div class="inside"></div></div>
+							</div>
+						</div>
+					</div> -->
+					<script>
+					const adhaarInput = document.getElementById("adhaar_no");
+const adhaarRegex = /^\d{12}$/;
+
+adhaarInput.addEventListener("input", () => {
+  const adhaarValue = adhaarInput.value.trim();
+  if (adhaarRegex.test(adhaarValue)) {
+    // Valid input
+    adhaarInput.setCustomValidity("");
+  } else {
+    // Invalid input
+    adhaarInput.setCustomValidity("Please enter a valid Aadhaar number");
+  }
+});
+				</script>	
+				<script>
+				const emailInput = document.getElementById("email");
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+emailInput.addEventListener("input", () => {
+  const emailValue = emailInput.value.trim();
+  if (emailRegex.test(emailValue)) {
+    // Valid input
+    emailInput.setCustomValidity("");
+  } else {
+    // Invalid input
+    emailInput.setCustomValidity("Please enter a valid email address");
+  }
+});
+
+</script>
+
+
+					<input type="submit" style="width: 100px; color: white;" name="submit" value="Submit" class="form-control btn btn-success">
+				</div>
+				
+			<!--</div>-->
+		</form> 
 
 		
-								<div class="form-group">
-									<label for="" class="control-label">Please Upload passport</label>
-									<input type="file" class="form-control" name="passport" id="passport" onchange="displayImg(this,$(this),'cimg')">
-								</div>
-								<div class="form-group">
-									<img src="" alt="" id="cimg">
-								</div>	
-						</div>
-			<div class="row">
-				<div class="col-md-6">
-					<div class="form-group">
-						<label for="">Date of birth</label>
-						<input name="dob" id="dob" type="date" step="any" class="form-control text-left"  reguired>
-					</div>
-				</div>
+		 <form action="#" method="POST"> 
+<!-- <input type="hidden"name="id"value="<= $row['id']?>"> -->
+<input type="hidden" id="name1" value="<?php echo $n; ?>">
 
-				<div class="col-md-6">
-					<div class="form-group">
-						<label for="">You had Any Air reward</label>
-						<input name="air_reward" id="air_reward" type="text" step="any" class="form-control"  reguired>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-					<div class="form-group">
-						<label for="">Adhaar number</label>
-						<input name="adhaar_no" id="adhaar_no" type="text" step="any" class="form-control"  reguired>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-					<div class="form-group">
-						<label for="">Enter Number of passengers</label>
-						<input name="noofpass" id="noofpass" type="text" step="any" class="form-control"  reguired>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-					<div class="form-group">
-						<label for="">Enter your Baggage Details</label>
-						<input name="baggage" id="baggage" type="text" step="any" class="form-control"  reguired>
-					</div>
-				</div>
-			</div>
-
-			
-			
-				
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <input type="submit" name="submit" value="Submit" class="btn btn-success">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						
-					</div>
-				</div>
-			</div>
-		</form>
-	</div>
+<div class="logo">
+    <h3></h3>
 </div>
-			
-			
-			<div class="clear"></div>
-			<td><input type="button" id="rzp-button1"name="btn"value="pay now"class="btn btn-primary" onclick="pay_now()"/></td>
+<div class="cart">
+   <div class="cart-top">
+      <div class="cart-experience">
+         <h4></h4>
+      </div>
+      <div class="cart-login">
+         <div class="cart-login-img">
+            <!--<img src="imagesbooks/loggin_man.png">-->
+         </div>
+         <div class="cart-login-text">
+            <h5></h5>
+         </div>     
+          <!--<div class="lang_list">
+                <select tabindex="4" class="dropdown">
+                    <option value="" class="label" value=""></option>
+                    <option value="1"></option>
+                    <option value="2"></option>
+                    <option value="3"></option>
+                </select>
+             </div>      -->
+         <div class="clear"> </div>
+      </div>
+     <div class="clear"> </div>
+   </div>
 
-<!--<input type="submit" value="Book Now" name="submit">-->
-			<!--<input type="reset" value="Clear Form">-->
-			<div class="clear"></div>
-		</form>
-		<!--// Form starts here -->
+   <div class="cart-bottom">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Airline</th>
+					<th scope="col">flightno</th>
+					<th scope="col">DepartureLocation</th>
+					<th scope="col">Arrivallocation</th>
+					<th scope="col">Departure date and time</th>
+					<th scope="col">Arrival date and time</th> 
+					<th scope="col">Proceed to payment</th> 
+
+				</tr>
+			</thead>
+			<tbody>
+				
+				<?php
+					//$airport = $conn->query("SELECT * FROM airport_list ");
+					//while($row = $airport->fetch_assoc()){
+						//$aname[$row['id']] = ucwords($row['airport'].', '.$row['location']);
+					//}
+					$id=$_REQUEST['id'];
+
+					$qry = $con->query("SELECT * FROM tbl_bookings where bk_id=$id");
+					while($row = $sql->fetch_assoc()):
+						// $a= 'images1/'.$row["cimage"];
+						
+						//$booked = $conn->query("SELECT * FROM booked_flight where id = ".$row['id'])->num_rows;
+					$r=$row['price'];
+				?>
+					<tr>
+						<!--<th scope="row">1</th>-->
+						<td><?php echo $row['Airline'] ?></td>
+						<td><?php echo $row['flightNo'] ?></td> 
+						<td><?php echo $row['DepartureLocation'] ?></td>
+						<td><?php echo $row['Arrivallocation'] ?></td>
+						<td><?php echo $row['Departuredate'] ?></td>
+						<td><?php echo $row['arrivaldate'] ?></td>
+						<!--<td><input type="button" id="rzp-button1"name="btn"value="pay now"class="btn btn-primary" onclick="pay_now()"/></td>-->
+						<td><a href="email.php?id=<?php echo $row['id']?>"> <h5>Select your seats</h5></td>
+
+					</tr>
+						
+					<!-- <td class="text-right">
+					<img src="<?php echo $a ?> " style="width:150px; height:150px;"></td>-->
+					
+				
+					<!-- <td class="text-right">-->
+					<!-- <php echo number_format($row['price'],2) ?></td>-->
+                <?php endwhile;  ?>
+			</tbody>
+		</table>
 	</div>
+	</div>
+					</div>
+
+
 	<!--copyright-->
 	<div class="copyright">
 	<!--	<p>&copy; 2018. Airline Booking Form . All Rights Reserved | Design by <a href="http://w3layouts.com/" target="_blank">W3layouts</a>			</p>-->
@@ -643,17 +799,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
                            <div class="menu">
 									<ul id="menu" >
-										<li><a href="asyourneed.php"><i class="fa fa-tachometer"></i> <span>Home</span></a></li>
-										<li><a href="#"><i class="fa fa-tachometer"></i> <span>View booking status</span></a></li>
-										<li><a href="bookyours.php"><i class="fa fa-tachometer"></i> <span>View All flights</span></a></li>
+									<li><a href="asyourneed.php"><i class="fa fa-tachometer"></i> <span>Home</span></a></li>
+										<li><a href="pricedata-update.php"><i class="fa fa-tachometer"></i> <span>Predict your fare</span></a></li>
+
+										<!-- <li><a href="bookflight.php"><i class="fa fa-tachometer"></i> <span>Book your flight</span></a></li> -->
+										<!-- <li><a href="vcart1.php"><i class="fa fa-tachometer"></i> <span>View booking status</span></a></li> -->
+										<li><a href="packages.php"><i class="fa fa-tachometer"></i> <span>View All flights</span></a></li>
 										<li><a href="preferedbooked.php"><i class="fa fa-tachometer"></i> <span>Bookings</span></a></li>
 										<li><a href="offers.php"><i class="fa fa-tachometer"></i> <span>view offers</span></a></li>
-										
-										<li><a href="viewairlines.php"><i class="fa fa-tachometer"></i> <span>view all airlines</span></a></li>
-										<li><a href="viewairpot.php"><i class="fa fa-tachometer"></i> <span>view all airports</span></a></li>
+										<li><a href="viewairlines.php"><i class="fa fa-tachometer"></i> <span>View All Airlines</span></a></li>
+										<li><a href="viewairport.php"><i class="fa fa-tachometer"></i> <span>Airport list</span></a></li>
+										<li><a href="viewflights.php"><i class="fa fa-tachometer"></i> <span>View seat map</span></a></li>
+										<li><a href="http://127.0.0.1:8000/"><i class="fa fa-tachometer"></i> <span>View prices of airlines</span></a></li>
 
 										<button ><a href='logout.php'>LOGOUT</a></button>
-
+										
+										
 									<!--<li><a href="#"><i class="lnr lnr-chart-bars"></i> <span>Forms</span> <span class="fa fa-angle-right" style="float: right"></span></a>
 									  <ul>
 										<li><a href="input.html"> Input</a></li>
